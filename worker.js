@@ -1,14 +1,15 @@
 export default {
   async fetch(request, env) {
     try {
-      const response = await env.AI.run('@cf/google/nano-banana-2-lite', {
-        prompt: "A beautiful sci-fi landscape, digital art, 4k",
-        aspect_ratio: "1:1"
+      // Cloudflare ka asli Stable Diffusion image model
+      const response = await env.AI.run('@cf/stabilityai/stable-diffusion-xl-base-1.0', {
+        prompt: "A beautiful sci-fi landscape, digital art, 4k"
       });
       
-      return new Response(JSON.stringify(response), {
+      // Direct image format mein response return karega
+      return new Response(response, {
         headers: { 
-          'content-type': 'application/json',
+          'content-type': 'image/png',
           'Access-Control-Allow-Origin': '*' 
         }
       });
